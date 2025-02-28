@@ -1,0 +1,138 @@
+.login-container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.login-loading {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.login-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  color: #667eea;
+  filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.4));
+  transform-origin: center;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: #667eea;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+  animation: pulse 1.5s infinite;
+}
+
+.login-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  color: white;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.login-body {
+  padding: 2rem;
+}
+
+.input-icon {
+  background-color: #f8f9fa;
+  border-right: none;
+}
+
+.input-field {
+  border-left: none;
+}
+
+.login-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-button-loading {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
