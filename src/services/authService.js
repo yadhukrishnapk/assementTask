@@ -1,5 +1,7 @@
+// service/authService.js
 import axios from "axios";
-import useAuthStore from "../store/authStore";
+import { useAtom } from 'jotai';
+import { authAtom } from "../store/authStore";
 
 const BASE_URL = "https://core-skill-test.webc.in/employee-portal/api/v1";
 const api = axios.create({ 
@@ -16,8 +18,7 @@ api.interceptors.request.use((config) => {
 });
 
 export const useAuthActions = () => {
-  const setAuth = useAuthStore((state) => state.setAuth);
-  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const [, setAuth] = useAtom(authAtom);
 
   const loginUser = async (username, password) => {
     try {
@@ -26,7 +27,7 @@ export const useAuthActions = () => {
       if (response.data.success) {
         localStorage.setItem("authToken", response.data.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data));
-        setAuth(response.data.data.token, response.data.data);
+        setAuth({ token: response.data.data.token, user: response.data.data });
         return response.data;
       }
       
@@ -53,7 +54,7 @@ export const useAuthActions = () => {
     } finally {
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
-      clearAuth();
+      setAuth({});
     }
   };
 

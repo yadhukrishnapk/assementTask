@@ -1,21 +1,28 @@
-import { create } from 'zustand';
+// store/authStore.js
+import { atom } from 'jotai';
 
-const useAuthStore = create((set) => ({
-  token: null,
-  user: null,
-  isAuthenticated: false,
-  
-  setAuth: (token, user) => set({
-    token,
-    user,
-    isAuthenticated: true
+export const tokenAtom = atom(null);
+export const userAtom = atom(null);
+export const isAuthenticatedAtom = atom(false);
+
+// Atom with write capabilities for auth state
+export const authAtom = atom(
+  (get) => ({
+    token: get(tokenAtom),
+    user: get(userAtom),
+    isAuthenticated: get(isAuthenticatedAtom),
   }),
-  
-  clearAuth: () => set({
-    token: null,
-    user: null,
-    isAuthenticated: false
-  })
-}));
-
-export default useAuthStore;
+  (get, set, update) => {
+    if ('token' in update && 'user' in update) {
+      // Set auth
+      set(tokenAtom, update.token);
+      set(userAtom, update.user);
+      set(isAuthenticatedAtom, true);
+    } else {
+      // Clear auth
+      set(tokenAtom, null);
+      set(userAtom, null);
+      set(isAuthenticatedAtom, false);
+    }
+  }
+);

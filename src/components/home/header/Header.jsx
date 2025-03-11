@@ -1,16 +1,20 @@
+// src/components/Header.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
-import useAuthStore from '../../../store/authStore';
+import { useAtom } from 'jotai';
+import { authAtom, userAtom, isAuthenticatedAtom } from '../../../store/authStore';
 
 const Header = ({ title }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { isAuthenticated, user, clearAuth } = useAuthStore();
+  const [, setAuth] = useAtom(authAtom);
+  const [user] = useAtom(userAtom);
+  const [isAuthenticated] = useAtom(isAuthenticatedAtom);
 
   const handleLogout = () => {
-    clearAuth();
+    setAuth({});
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     window.location.href = '/login';
